@@ -7,8 +7,11 @@ app.use(cors());
 app.use(express.json());
 
 const driver = neo4j.driver(
-  'neo4j+s://d9670df3.databases.neo4j.io',
-  neo4j.auth.basic('d9670df3', 'aVLC8u6G7Z7rER93-duUk2D17ZU1bFFC0ru_O9iKI0o')
+  process.env.NEO4J_URI || 'neo4j+s://d9670df3.databases.neo4j.io',
+  neo4j.auth.basic(
+    process.env.NEO4J_USER || 'd9670df3',
+    process.env.NEO4J_PASSWORD || 'aVLC8u6G7Z7rER93-duUk2D17ZU1bFFC0ru_O9iKI0o'
+  )
 );
 
 async function initDB() {
